@@ -1,6 +1,8 @@
 import express from 'express';
 import routes from "./network/routes.mjs";
 
+const db = require("db");
+db.connect();
 //Create a route, giving a response-> Deprecated
 // app.use('/', (req, res) => {
 //     res.send('<h1>Hello world</h1>');

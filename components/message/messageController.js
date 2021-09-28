@@ -7,8 +7,7 @@ function updateMessage(id, message) {
             return;
         }
         const result = await store.updateMessage(id, message);
-
-    })
+    });
 }
 
 
@@ -20,7 +19,6 @@ async function addMessage(user, message) {
             };
             console.log(`${fullMessage['date']}: 
 ${fullMessage['user']} : ${fullMessage ['message']}`);
-
             store.add(fullMessage);
             resolve('Message Sent');
             return true;
@@ -45,6 +43,8 @@ function deleteMessage(id) {
             reject('Invalid Data');
             return;
         }
+
+        console.log(id);
         store.remove(id).then(() => {
             resolve();
         }).catch(e => {

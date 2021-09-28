@@ -1,10 +1,7 @@
 const Model = require("./model");
-const db = require('mongoose');
-db.Promise = global.Promise;
+const db = require("../../db");
+db.connect();
 
-const uri = "mongodb+srv://captain-run:Runrun123k@platzicourse.caqe2.mongodb.net/Telegrom?retryWrites=true&w=majority";
-db.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-console.log('[mongodb] successfully connecting')
 
 /*
 * mongodb+srv://captain-run:Runrun123k@platzicourse.caqe2.mongodb.net/Telegrom?retryWrites=true&w=majority
@@ -20,13 +17,14 @@ function addMessage(message) {
 }
 
 async function getMessages(filter) {
-    const _filter = {
-        user: filter
+    if (filter) {
+        const _filter = {
+            user: filter
+        }
+        console.log(_filter);
+        return Model.find(_filter);
     }
-    console.log(_filter);
-    return filter ? Model.find(_filter) : Model.find();
-
-
+    return Model.find();
 }
 
 
