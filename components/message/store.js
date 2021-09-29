@@ -12,7 +12,6 @@ async function getMessages(filter) {
 
     return new Promise((resolve, reject) => {
         let _filter;
-
         if (filter !== null) {
             filter = {name: filter}
             _filter = {

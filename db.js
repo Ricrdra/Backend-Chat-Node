@@ -1,11 +1,14 @@
+require('dotenv').config();
 const db = require('mongoose');
 db.Promise = global.Promise;
+//You need to config .env file with example.env template
+const uri = process.env.MONGO_URI || 'mongodb://localhost';
 
-const uri = "mongodb+srv://captain-run:Runrun123k@platzicourse.caqe2.mongodb.net/Telegrom?retryWrites=true&w=majority";
+console.log(uri)
 
 async function connect() {
     await db.connect(uri, {useNewUrlParser: true, useUnifiedTopology: true});
-    console.log('[mongodb] successfully connecting')
+    console.log('[mongodb] successfully connecting');
 }
 
 module.exports = connect;
