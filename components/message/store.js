@@ -1,6 +1,4 @@
 const Model = require("./model");
-const db = require("../../db");
-db.connect();
 
 
 /*
@@ -17,14 +15,28 @@ function addMessage(message) {
 }
 
 async function getMessages(filter) {
-    if (filter) {
-        const _filter = {
-            user: filter
+
+    return new Promise((resolve, reject) => {
+        let _filter;
+
+        if (filter !== null) {
+            filter = {name: filter}
+            _filter = {
+                user: filter
+            }
+        } else {
+            _filter = {}
         }
-        console.log(_filter);
-        return Model.find(_filter);
-    }
-    return Model.find();
+        Model.find(_filter ? _filter : {})
+        .populate('user')
+        .exec((err, populatedData) => {
+            if (err) {
+                reject(err);
+                return;
+            }
+            resolve(populatedData);
+        });
+    });
 }
 
 

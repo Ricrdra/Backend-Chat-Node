@@ -1,13 +1,7 @@
-import express from 'express';
-import routes from "./network/routes.mjs";
-
-const db = require("db");
-db.connect();
-//Create a route, giving a response-> Deprecated
-// app.use('/', (req, res) => {
-//     res.send('<h1>Hello world</h1>');
-// });
-
+const express = require('express');
+const routes = require('./network/routes.js');
+const connect = require('./db.js');
+connect().then(r => console.log(r));
 let app = express();
 
 app.use(express.json());
