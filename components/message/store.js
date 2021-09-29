@@ -1,12 +1,6 @@
 const Model = require("./model");
 
 
-/*
-* mongodb+srv://captain-run:Runrun123k@platzicourse.caqe2.mongodb.net/Telegrom?retryWrites=true&w=majority
-*
-* */
-
-
 function addMessage(message) {
     const newMessage = new Model(message);
     newMessage.save().then(r => {

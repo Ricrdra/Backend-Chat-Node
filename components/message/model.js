@@ -7,8 +7,6 @@ const mySchema = new Schema({
         ref: "User",
         required: true
     },
-    
-
     message: {
         type: String,
         required: true
@@ -18,5 +16,4 @@ const mySchema = new Schema({
 
 
 const Model = mongoose.model('Message', mySchema);
-
 module.exports = Model;
