@@ -7,11 +7,6 @@ const mySchema = new Schema({
         ref: 'User',
         required: true
     }],
-    messages: [{
-        type: Schema.ObjectId,
-        ref: 'Message',
-        required: true
-    }]
 });
 
 
