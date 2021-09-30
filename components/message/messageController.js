@@ -11,12 +11,22 @@ function updateMessage(id, message) {
 }
 
 
-async function addMessage(user, message) {
+async function addMessage(user, message, chat, file = null) {
     return await new Promise((resolve, reject) => {
         if (user && message) {
+            let fileUrl;
+            if (file) {
+                fileUrl = `http://localhost:3000/app/uploads/${file.filename}`;
+
+            }
             const fullMessage = {
-                user, message, date: new Date()
+                user, message
+                , chat
+                , date: new Date()
+                , file: fileUrl
             };
+
+
             console.log(`${fullMessage['date']}: 
 ${fullMessage['user']} : ${fullMessage ['message']}`);
             store.add(fullMessage);
@@ -57,8 +67,3 @@ function deleteMessage(id) {
 module.exports = {
     add: addMessage, get: getMessage, update: updateMessage, delete: deleteMessage
 };
-
-
-
-
-

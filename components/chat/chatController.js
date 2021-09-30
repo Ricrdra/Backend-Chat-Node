@@ -2,9 +2,13 @@ const store = require('./store');
 
 
 async function addChat(users) {
+
     return await new Promise((resolve, reject) => {
+
         if (users) {
-            store.add(users);
+            console.log("[chat controller]" + users);
+            const chat = {users: users};
+            store.add(chat);
             resolve('Chat Added');
             return true;
         } else {
@@ -15,9 +19,9 @@ async function addChat(users) {
     });
 }
 
-async function getChat(filter) {
+async function getChat(chatList) {
     return await new Promise((resolve, reject) => {
-        resolve(store.list(filter));
+        resolve(store.list(chatList));
     });
 }
 

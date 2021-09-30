@@ -1,7 +1,23 @@
 const controller = require("./messageController.js");
 const express = require("express");
 const resp = require("../../network/response.js")
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+        cb(null, 'public/uploads/');
+    },
+    filename: function (req, file, cb) {
+        const [name, extension] = file.originalname.split('.');
+        cb(null, `${name}-${Date.now()}.${extension}`)
+    }
+})
+
+const upload = multer({storage: storage});
+
+
 let router = express.Router();
+
 
 router.get('/', (req, res) => {
 
@@ -14,16 +30,15 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/', (request, response) => {
-
-    controller.add(request.body.user, request.body.message)
+router.post('/', upload.single('file'), (request, response) => {
+    console.log(request.file);
+    controller.add(request.body.user, request.body.message, request.body.chat, request.file)
     .then((message) => {
         resp.success(request, response, message, 204);
     }).catch((e) => {
         resp.error(request, response, e, 404, 'Controller error');
     });
 
-    // response.status(201).send({error: `<strong>You're so funny</strong>`, body: 'You can\'t divide by cats!'});
 
 });
 
